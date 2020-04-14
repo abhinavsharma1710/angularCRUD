@@ -1,0 +1,8 @@
+<div class="card card-primary" *ngIf="!showCard">
+    <div class="card-header">{{project.title}}</div>
+    <div class="card-body">{{project.body}}</div>
+    <div class="card-footer">
+        <button class="btn btn-danger" (click)="deleteProject($event, project.id)">Delete</button>
+        <button class="btn btn-primary" (click)="editProject(project)">Edit</button>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<h1>Projects</h1>
+<button id="modalBtn" class="btn btn-primary" data-toggle="modal" data-target="#newModal">Create Project</button>
+<button id="modalBtn" class="btn btn-primary" (click)="toggleProject()">Toggle Project cards</button>
+<div class="row">
+    <div class="col-8 mx-auto">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let proj of projects; let i=index">
+            <div class="card">
+              <app-proj #prj
+                [currentProject]="proj" 
+                [recordIndex]='i'
+                (onDelete)="onDelete($event, id)"
+                (onEdit)="onEdit(proj)"
+                ></app-proj>
+            </div>
+          </div>
+        </div>
+       
+    </div>
+</div>
+
+<form (onSumit)="onSaveClick()" [formGroup]="projectForm">
+    <div class="modal" role="dialog" id="newModal">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width:700px">
+          <div class="modal-header">
+            <div class="modal-title">New Project</div>
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          </div>
+          <div class="modal-body">
+  
+            <div class="form-group row">
+              <label for="id" class="col-sm-4 col-form-label">ID</label>
+              <div class="col-sm-8">
+                <input formControlName="id" type="text" id="id" style="width:100px" class="form-control" placeholder="Project ID"
+                  name="id" [(ngModel)]="newProject.id">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="userId" class="col-sm-4 col-form-label">User ID</label>
+              <div class="col-sm-8">
+                <input formControlName="userId" type="text" id="userId" class="form-control" placeholder="User Id"
+                  name="userId" [(ngModel)]="newProject.userId">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="title" class="col-sm-4 col-form-label">Title</label>
+              <div class="col-sm-8">
+                <input formControlName="title" type="text" id="title" style="width:150px" class="form-control"
+                  placeholder="Title" name="title" [(ngModel)]="newProject.title">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="body" class="col-sm-4 col-form-label">Body</label>
+              <div class="col-sm-8">
+                <input formControlName= "body" type="text" id="body" style="width:150px" class="form-control" placeholder="Body"
+                  name="body" [(ngModel)]="newProject.body">
+              </div>
+            </div>
+  
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button *ngIf="!isEdit" class="btn btn-success" (click)="onSaveClick()">Save</button>
+            <button *ngIf="isEdit" class="btn btn-primary" (click)="onUpdateClick()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
